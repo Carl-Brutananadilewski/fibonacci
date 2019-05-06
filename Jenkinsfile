@@ -2,7 +2,7 @@ def bucket = 'lambda-deployment-packages-itikhonov'
 def functionName = 'Fibonacci'
 def region = 'us-east-1'
 
-node('slaves'){
+node {
     stage('Checkout'){
         checkout scm
     }
