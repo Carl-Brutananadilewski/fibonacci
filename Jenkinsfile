@@ -8,7 +8,7 @@ node {
     }
 
     stage('Test'){
-        sh 'go get -u github.com/golang/lint/golint'
+        sh 'go get -u golang.org/x/lint/golint'
         sh 'go get -t ./...'
         sh 'golint -set_exit_status'
         sh 'go vet .'
