@@ -3,7 +3,7 @@ package main
 import (
 	"errors"
 
-	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/aws/aws-lambda-go"
 )
 
 func fibonacci(n int) int {
