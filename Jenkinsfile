@@ -1,13 +1,12 @@
-def bucket = 'lambda-deployment-packages-itikhonov'
+def bucket = 'deployment-packages-mlabouardy'
 def functionName = 'Fibonacci'
-def region = 'us-east-1'
+def region = 'eu-west-3'
 
 node {
     stage('Checkout'){
         checkout scm
     }
 
-    
 
     stage('Build'){
         sh 'GOOS=linux go build -o main main.go'
@@ -23,6 +22,16 @@ node {
                 --s3-bucket ${bucket} \
                 --s3-key ${commitID()}.zip \
                 --region ${region}"
+    }
+
+    if (env.BRANCH_NAME == 'master') {
+        stage('Publish') {
+            def lambdaVersion = sh(
+                script: "aws lambda publish-version --function-name ${functionName} --region ${region} | jq -r '.Version'",
+                returnStdout: true
+            )
+            sh "aws lambda update-alias --function-name ${functionName} --name production --region ${region} --function-version ${lambdaVersion}"
+        }
     }
 }
 
