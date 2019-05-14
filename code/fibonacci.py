@@ -14,7 +14,6 @@ def lambda_handler(event, context):
     else:
         return fibonacci(event)
 
-
 if __name__ == "__main__":
     event = {"number":7}
     context = {}
