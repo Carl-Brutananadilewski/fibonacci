@@ -38,6 +38,7 @@ node {
 
 
 def commitID() {
+    sh 'ls -alh .git'
     sh 'git rev-parse HEAD > .git/commitID'
     def commitID = readFile('.git/commitID').trim()
     sh 'rm .git/commitID'
