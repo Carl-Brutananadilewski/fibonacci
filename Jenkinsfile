@@ -9,8 +9,9 @@ node {
 
 
     stage('Build'){
-        sh 'GOOS=linux go build -o main main.go'
-        sh "zip ${commitID()}.zip main"
+        dir("code") {
+        sh "zip -r ${commitID()}.zip *"
+        }
     }
 
     stage('Push'){
